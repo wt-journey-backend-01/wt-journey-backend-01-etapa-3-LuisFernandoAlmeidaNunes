@@ -34,10 +34,22 @@ const errorHandler = ( err, req, res, next ) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || 'Erro interno do servidor.';
 
+    if (err.name === 'ZodError') {
+        const errors = {};
+        err.errors.forEach((e) => {
+            const path = e.path.join('.');
+            errors[path] = e.message;
+    });
+
+    // res.status(statusCode).json({
+    //     status: 'error',
+    //     statusCode,
+    //     message,
+    // });
     res.status(statusCode).json({
-        status: 'error',
-        statusCode,
-        message,
+        status: statusCode,
+        message: err.message || "Erro interno do servidor",
+        errors: errors
     });
 };
 
