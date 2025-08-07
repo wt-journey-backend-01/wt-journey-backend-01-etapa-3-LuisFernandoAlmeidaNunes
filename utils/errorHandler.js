@@ -28,30 +28,37 @@ const partialAgenteSchema = agenteSchema.partial();
 
 const partialCasoSchema = casoSchema.partial();
 
-const errorHandler = ( err, req, res, next ) => {
-    console.error(err.stack);
-
-    const statusCode = err.statusCode || 500;
-    const message = err.message || 'Erro interno do servidor.';
+function errorHandler(err, req, res, next) {
+    if (err instanceof ApiError) {
+        // Tratamento de erros lançados manualmente
+        return res.status(err.statusCode).json({
+            status: err.statusCode,
+            message: err.message
+        });
+    }
 
     if (err.name === 'ZodError') {
+        // Erro de validação do Zod
         const errors = {};
         err.errors.forEach((e) => {
             const path = e.path.join('.');
             errors[path] = e.message;
-    });
+        });
 
-    // res.status(statusCode).json({
-    //     status: 'error',
-    //     statusCode,
-    //     message,
-    // });
-    res.status(statusCode).json({
-        status: statusCode,
-        message: err.message || "Erro interno do servidor",
-        errors: errors
+        return res.status(400).json({
+            status: 400,
+            message: 'Parâmetros inválidos',
+            errors: errors
+        });
+    }
+
+    // Erro genérico (não tratado)
+    return res.status(500).json({
+        status: 500,
+        message: 'Erro interno do servidor',
+        errors: err.message || 'Erro desconhecido'
     });
-};
+}
 
 module.exports = {
     errorHandler,
