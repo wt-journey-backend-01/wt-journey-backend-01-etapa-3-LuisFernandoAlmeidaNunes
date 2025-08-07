@@ -50,16 +50,16 @@ async function getAgenteById(req, res, next) {
 
 
 
-function createAgente(req,res, next){
+async function createAgente(req,res, next){
     let agenteData;
     try {
-        agenteData = errorHandler.agenteSchema.parse(req.body); 
+        agenteData = await errorHandler.agenteSchema.parse(req.body); 
     
     } catch(error) {
         return next(new ApiError(error.message, 400));
     }
     try {
-        const agente = agentesRepository.create(agenteData);        
+        const agente = await agentesRepository.create(agenteData);        
         return res.status(201).json({message: "Agente criado com sucesso !", agente: agente});
     } catch(error) {
         next(new ApiError(error.message, 404));

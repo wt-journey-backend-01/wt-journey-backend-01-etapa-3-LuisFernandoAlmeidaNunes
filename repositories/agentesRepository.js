@@ -25,16 +25,13 @@ async function findAll() {
 }
 
 async function findById(id) {
-    console.log("Aqui no meio");
 
 
     const agente = await db("agentes").where({id:id}).first();
 
     if(!agente){
-        return new Error(`Não foi possível achar agente`);
+        throw new Error(`Agente não encontrado`);
     }
-
-    console.log("AQUII: " + agente);
 
     return agente;
 }

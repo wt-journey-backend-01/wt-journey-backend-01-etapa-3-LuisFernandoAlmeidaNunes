@@ -11,7 +11,7 @@ exports.up = function(knex) {
         table.string('cargo', ['delegado', 'investigador']).notNullable();
     })
     .createTable('casos', function(table) {
-        table.increments('id').primary;
+        table.increments('id').primary();
         table.string('titulo').notNullable();
         table.string('descricao').notNullable();
         table.enu('status', ['aberto', 'solucionado']).notNullable();
