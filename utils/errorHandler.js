@@ -1,7 +1,7 @@
 const { z } = require('zod');
 
 const idSchema = z.object({
-  id: z.number({required_error: 'Id é obrigatório'}).int({invalid_type_error: 'O id deve ser um numero inteiro'}).positive({invalid_type_error: 'O id deve ser um numero inteiro positivo'})
+  id: z.coerce.number({required_error: 'Id é obrigatório'}).int({invalid_type_error: 'O id deve ser um numero inteiro'}).positive({invalid_type_error: 'O id deve ser um numero inteiro positivo'})
 });
 
 const casoSchema = z.object({
@@ -11,7 +11,7 @@ const casoSchema = z.object({
         required_error: 'Status é obrigatório.',
         invalid_type_error: 'Status deve ser "aberto" ou "solucionado".'
     }),
-    agente_id: idSchema
+    agente_id: z.coerce.number({required_error: 'Id é obrigatório'}).int({invalid_type_error: 'O id deve ser um numero inteiro'}).positive({invalid_type_error: 'O id deve ser um numero inteiro positivo'})
 });
 
 const agenteSchema = z.object({

@@ -107,7 +107,6 @@ async function getAllCasos(req, res, next) {
 async function getCasoById(req, res, next) {
     let id;
 
-    req.params.id = parseInt(req.params.id);
     id = errorHandler.idSchema.parse(req.params).id;
     
     const caso = await casosRepository.findById(id);
@@ -123,13 +122,10 @@ async function getCasoById(req, res, next) {
 async function createCaso(req, res, next){
 
     let dados;
-    
-    console.log(req.body);
 
     dados = errorHandler.casoSchema.parse(req.body);
-
     
-    const agente = await agentesRepository.findById(parseInt(dados.agente_id));
+    const agente = await agentesRepository.findById(dados.agente_id);
 
     if(!agente){
         return next(new errorHandler.ApiError("Não foi possível encontrar o agente do caso !", 404));
@@ -148,7 +144,6 @@ async function createCaso(req, res, next){
 async function deleteCasoById(req, res){
     let id;
 
-    req.params.id = parseInt(req.params.id);
     id = errorHandler.idSchema.parse(req.params).id;
 
     const caso = await casosRepository.deleteById(id);
@@ -163,8 +158,6 @@ async function deleteCasoById(req, res){
 
 async function editCaso(req, res, next) {
     let id, dados;
-
-    req.params.id = parseInt(req.params.id);
 
     id = errorHandler.idSchema.parse(req.params).id;    
     dados = errorHandler.casoSchema.parse(req.body);
@@ -181,8 +174,6 @@ async function editCaso(req, res, next) {
 async function editCasoProperty(req, res, next){
     
     let id, dados;
-    
-    req.params.id = parseInt(req.params.id);
 
     id = errorHandler.idSchema.parse(req.params).id;
     dados = errorHandler.partialCasoSchema.parse(req.body);

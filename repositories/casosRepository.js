@@ -68,7 +68,7 @@ async function create(obj){
 
 async function edit(id, casoData){
 
-    const caso = await db('caso').where({id:id}).update(casoData,["*"]);
+    const caso = await db('casos').where({id:id}).update(casoData,["*"]);
 
     if (!caso) {
         return false; 
@@ -79,7 +79,9 @@ async function edit(id, casoData){
 
 async function deleteById(id) {
 
-    const deleted = await db("caso").where({id:id}).del();
+    console.log(typeof(id))
+
+    const deleted = await db("casos").where({id:id}).del();
   
     if(!deleted){
         return false;
