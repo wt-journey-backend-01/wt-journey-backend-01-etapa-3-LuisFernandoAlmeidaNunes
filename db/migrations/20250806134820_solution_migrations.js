@@ -8,7 +8,7 @@ exports.up = function(knex) {
         table.increments('id').primary();
         table.string('nome').notNullable();
         table.date('dataDeIncorporacao').notNullable();
-        table.string('cargo', ['delegado', 'investigador']).notNullable();
+        table.enu('cargo', ['delegado', 'investigador']).notNullable();
     })
     .createTable('casos', function(table) {
         table.increments('id').primary();

@@ -17,7 +17,6 @@ async function getAgenteById(req, res, next) {
     
     let id;
 
-    req.params.id = parseInt(req.params.id);
     id = errorHandler.idSchema.parse(req.params).id;
 
     const agente = await agentesRepository.findById(id);
@@ -48,7 +47,6 @@ async function createAgente(req,res, next){
 async function deleteAgenteById(req, res, next){
     let id;
 
-    req.params.id = parseInt(req.params.id);
     id = errorHandler.idSchema.parse(req.params).id;
 
     deleted = await agentesRepository.deleteById(id);
@@ -62,8 +60,6 @@ async function deleteAgenteById(req, res, next){
 
 async function editAgente(req, res, next) {
     let id, dados;
-    
-    req.params.id = parseInt(req.params.id);
 
     id = errorHandler.idSchema.parse(req.params).id;
     dados = errorHandler.agenteSchema.parse(req.body);
@@ -80,8 +76,6 @@ async function editAgente(req, res, next) {
 async function editAgenteProperty(req, res, next){
     
     let id, dados;
-    
-    req.params.id = parseInt(req.params.id);
 
     id = errorHandler.idSchema.parse(req.params).id;
     dados = errorHandler.partialAgenteSchema.parse(req.body);

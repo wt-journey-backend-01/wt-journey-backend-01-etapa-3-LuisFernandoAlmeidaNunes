@@ -13,7 +13,7 @@ async function create(obj) {
 async function findAll() {
     const agentes = await db("agentes").select("*");
 
-    if(!agentes){
+    if(agentes.length === 0){
         return false;
     }
 

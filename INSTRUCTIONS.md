@@ -1,5 +1,15 @@
 Para subir o banco primeiramente a aplicação docker deve estar rodando.
 
+configure um arquivo .env com as seguintes variaveis:
+
+  1. POSTGRES_USER=postgres
+  
+  2. POSTGRES_PASSWORD=postgres
+  
+  3. POSTGRES_DB=policia_db
+  
+  4. DB_PORT=numero_da_porta
+
 em seguida no terminal na raiz do projeto é necessário rodar os seguintes comandos.
 
   1. docker-compose up -d
@@ -21,4 +31,10 @@ para conferir os dados inseridos e tabelas criadas, simples comandos sql são su
 quando for necessário finalizar as aplicações.
 
   1. docker-compose down - adicione a flag -v para excluir os registros se quiser
+
+para iniciar o servidor:
+
+  1. npm start
+
+o servidor roda com a flag --watch, demais configurações podem ser incuidas no script start do arquivo <package.json>
   
