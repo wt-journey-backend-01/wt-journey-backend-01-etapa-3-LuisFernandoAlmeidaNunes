@@ -4,9 +4,9 @@ const casosController = require('../controllers/casosController');
 
 // define a rota para /agentes usando o método GET
 
-router.get('/casos/:caso_id/agente', casosController.getAgenteDataByCasoId);
+// router.get('/casos/:caso_id/agente', casosController.getAgenteDataByCasoId);
 
-router.get('/casos/search', casosController.getCasosByWord);
+// router.get('/casos/search', casosController.getCasosByWord);
 
 router.get('/casos', casosController.getAllCasos);
 

@@ -1,7 +1,7 @@
 const { z } = require('zod');
 
 const idSchema = z.object({
-  id: z.number().int().positive()
+  id: z.number({required_error: 'Id é obrigatório'}).int({invalid_type_error: 'O id deve ser um numero inteiro'}).positive({invalid_type_error: 'O id deve ser um numero inteiro positivo'})
 });
 
 const casoSchema = z.object({
@@ -13,10 +13,12 @@ const casoSchema = z.object({
     }),
     agente_id: idSchema
 });
+
 const agenteSchema = z.object({
     nome: z.string({ required_error: 'Nome é obrigatório.' }).min(1, 'Nome não pode ser vazio.'),
 
-    dataDeIncorporacao: z.string({ required_error: 'Data de incorporação é obrigatória.' }).regex(/^\d{4}\/\d{2}\/\d{2}$/, 'Data deve estar no formato YYYY/MM/DD'),
+      dataDeIncorporacao: z.string({ required_error: 'Data de incorporação é obrigatória.' })
+                           .regex(/^\d{4}-\d{2}-\d{2}$/, 'Data deve estar no formato YYYY-MM-DD'),
 
     cargo: z.enum(['inspetor', 'delegado'], {
         required_error: 'Cargo é obrigatório.',
@@ -28,40 +30,44 @@ const partialAgenteSchema = agenteSchema.partial();
 
 const partialCasoSchema = casoSchema.partial();
 
+class ApiError extends Error {
+  constructor(message, statusCode) {
+    super(message);
+    this.statusCode = statusCode;
+
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
 function errorHandler(err, req, res, next) {
-    if (err instanceof ApiError) {
-        // Tratamento de erros lançados manualmente
-        return res.status(err.statusCode).json({
-            status: err.statusCode,
-            message: err.message
-        });
-    }
+  // Se for erro de validação (Zod ou similar)
+  if (err.details && Array.isArray(err.details)) {
+    const messages = err.details.map((detail) => detail.message);
+    return res.status(400).json({ error: messages });
+  }
 
-    if (err.name === 'ZodError') {
-        // Erro de validação do Zod
-        const errors = {};
-        err.errors.forEach((e) => {
-            const path = e.path.join('.');
-            errors[path] = e.message;
-        });
+  // Se for erro do Zod
+  if (err.issues && Array.isArray(err.issues)) {
+    const messages = err.issues.map((issue) => issue.message);
+    return res.status(400).json({ error: messages });
+  }
 
-        return res.status(400).json({
-            status: 400,
-            message: 'Parâmetros inválidos',
-            errors: errors
-        });
-    }
+  // Se for erro do Zod diretamente
+  if (err.name === 'ZodError') {
+    const messages = err.errors.map((e) => e.message);
+    return res.status(400).json({ error: messages });
+  }
 
-    // Erro genérico (não tratado)
-    return res.status(500).json({
-        status: 500,
-        message: 'Erro interno do servidor',
-        errors: err.message || 'Erro desconhecido'
-    });
+  // Qualquer outro erro genérico
+  return res.status(500).json({
+    error: 'Erro interno no servidor',
+    message: err.message,
+  });
 }
 
 module.exports = {
     errorHandler,
+    ApiError,
     casoSchema,
     agenteSchema,
     idSchema,
