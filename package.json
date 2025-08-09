@@ -5,12 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch --trace-warnings server.js",
-    "db:create": "docker-compose down -v",
-    "db:drop": "docker-compose up -d",
-    "db:migrate": "npx knex migrate:latest",
-    "db:seed": "npx knex seed:run",
-    "db:reset": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed"
+    "start": "node --watch --trace-warnings server.js"
   },
   "keywords": [],
   "author": "",

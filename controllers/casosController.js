@@ -11,7 +11,7 @@ async function getAllCasos(req, res, next) {
 
         let casos = await casosRepository.findAll();
 
-        if(!casos){        
+        if(casos.length === 0){        
             return res.status(200).json({message: "Não há casos registrados ainda", casos: casos});
         }
 
@@ -165,7 +165,7 @@ async function createCaso(req, res, next){
     }
 }
 
-async function deleteCasoById(req, res){
+async function deleteCasoById(req, res, next){
 
     try{
 

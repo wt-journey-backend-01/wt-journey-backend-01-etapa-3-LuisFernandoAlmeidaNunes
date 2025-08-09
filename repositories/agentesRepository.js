@@ -7,7 +7,7 @@ async function create(obj) {
 }
 
 async function findAll() {
-    const [agentes] = await db("agentes").select("*");
+    const agentes = await db("agentes").select("*");
     return agentes;
 }
 
