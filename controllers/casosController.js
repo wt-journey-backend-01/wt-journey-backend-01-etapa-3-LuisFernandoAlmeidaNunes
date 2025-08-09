@@ -153,7 +153,7 @@ async function createCaso(req, res, next){
             return next(new errorHandler.ApiError("Não foi possível criar o caso !", 404));
         }
 
-        return res.status(201).json({caso: caso});
+        return res.status(201).json(caso);
 
     }catch(error){
         if (error instanceof z.ZodError) {
