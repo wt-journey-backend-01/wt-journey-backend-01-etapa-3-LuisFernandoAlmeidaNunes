@@ -5,7 +5,7 @@ async function findAll() {
     const casos = await db('casos').select('*');
     
     if(casos.length === 0){
-        return false;
+        return [];
     }
 
     return casos;
@@ -27,7 +27,7 @@ async function findByAgente(id){
     const casos = await db('casos').where({agente_id:id});
 
     if( casos.length === 0){
-        return false;
+        return [];
     }
 
     return casos;
