@@ -8,8 +8,8 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-app.use(agentesRouter);
-app.use(casosRouter);
+app.use('/agentes', agentesRouter);
+app.use('/casos', casosRouter);
 // app.use("api-docs", swaggerUi.serve, swaggerUi.setup(require("./swagger.json")));
 app.use(errorHandler.errorHandler);
 

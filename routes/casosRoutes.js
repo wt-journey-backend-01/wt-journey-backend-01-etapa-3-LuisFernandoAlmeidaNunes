@@ -1,24 +1,24 @@
 const express = require('express')
 const router = express.Router();
-const casosController = require('../controllers/casosController');
+const casosController = require('../controllersController');
 
 // define a rota para /agentes usando o método GET
 
-// router.get('/casos/:caso_id/agente', casosController.getAgenteDataByCasoId);
+// router.get('/:caso_id/agente', casosController.getAgenteDataByCasoId);
 
-// router.get('/casos/search', casosController.getCasosByWord);
+// router.get('/search', casosController.getCasosByWord);
 
-router.get('/casos', casosController.getAllCasos);
+router.get('', casosController.getAllCasos);
 
-router.get('/casos/:id', casosController.getCasoById);
+router.get('/:id', casosController.getCasoById);
 
-router.post('/casos', casosController.createCaso);
+router.post('', casosController.createCaso);
 
-router.put('/casos/:id', casosController.editCaso);
+router.put('/:id', casosController.editCaso);
 
-router.patch('/casos/:id', casosController.editCasoProperty);
+router.patch('/:id', casosController.editCasoProperty);
 
-router.delete('/casos/:id', casosController.deleteCasoById);
+router.delete('/:id', casosController.deleteCasoById);
 
 
 module.exports = router

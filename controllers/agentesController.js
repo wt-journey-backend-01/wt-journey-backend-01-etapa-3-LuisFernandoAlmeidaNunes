@@ -14,10 +14,6 @@ async function getAllAgentes(req, res, next) {
         return res.status(200).json({ agentes: agentes });
 
     }catch(error){
-        if (error instanceof z.ZodError) {
-            const errorMessages = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
-            return next(new errorHandler.ApiError(errorMessages.join(', '), 400));
-        }
         console.error("Erro inesperado na criação do agente:", error);
         return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
     }
@@ -29,6 +25,10 @@ async function getAgenteById(req, res, next) {
         const id = errorHandler.idSchema.parse(req.params).id;
 
         const agente = await agentesRepository.findById(id);
+
+        if (!agente) {
+        return next(new errorHandler.ApiError("Agente não encontrado", 404));
+        }
 
         return res.status(200).json({
             message: "Agente encontrado com sucesso!",
@@ -49,16 +49,20 @@ async function getAgenteById(req, res, next) {
 
 async function createAgente(req,res, next){
     try{
+
         const agenteData = await errorHandler.agenteSchema.parse(req.body);
 
         const agente = await agentesRepository.create(agenteData);        
 
         return res.status(201).json({message: "Agente criado com sucesso !", agente: agente});
+
     }catch(error){
+
         if (error instanceof z.ZodError) {
             const errorMessages = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
             return next(new errorHandler.ApiError(errorMessages.join(', '), 400));
         }
+        
         console.error("Erro inesperado na criação do agente:", error);
         return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
     }
@@ -69,6 +73,10 @@ async function deleteAgenteById(req, res, next){
         const id = errorHandler.idSchema.parse(req.params).id;
 
         deleted = await agentesRepository.deleteById(id);
+
+        if (!deleted) {
+            return next(new errorHandler.ApiError("Agente não encontrado", 404));
+        }
 
         return res.status(204).send();
 
@@ -88,6 +96,10 @@ async function editAgente(req, res, next) {
         const dados = errorHandler.agenteSchema.parse(req.body);
 
         const agente = await agentesRepository.edit(id, dados);
+
+        if (!agente) {
+            return next(new errorHandler.ApiError("Agente não encontrado", 404));
+        }
 
         return res.status(200).json({message: "Agente editado com sucesso !", agente: agente});
     }catch(error){
