@@ -5,13 +5,15 @@ const errorHandler = require("../utils/errorHandler");
 
 async function getAllCasos(req, res, next) {
 
+    try{
+
     // const {agente_id, status} = req.query;
 
-    let casos = await casosRepository.findAll();
+        let casos = await casosRepository.findAll();
 
-    if(!casos){        
-        return next(new errorHandler.ApiError("Não foi possível encontrar os registros de agentes !", 400));
-    }
+        if(!casos){        
+            return res.status(200).json({message: "Não há casos registrados ainda", casos: casos});
+        }
 
     // if(agente_id){
     //     const validatedUuid = errorHandler.idSchema.parse({id: agente_id});
@@ -30,8 +32,12 @@ async function getAllCasos(req, res, next) {
     //     }
     // }
 
-    return res.status(200).json(casos);
+        return res.status(200).json(casos);
     
+    }catch(error){
+        console.error("Erro inesperado na criação do agente:", error);
+        return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
+    }
 }
 
 // function getCasosByWord(req, res, next){
@@ -105,90 +111,134 @@ async function getAllCasos(req, res, next) {
 // }
 
 async function getCasoById(req, res, next) {
-    let id;
 
-    id = errorHandler.idSchema.parse(req.params).id;
-    
-    const caso = await casosRepository.findById(id);
+    try{
 
-    if(!caso){
-        return next(new errorHandler.ApiError("Não foi possível encontrar o caso !", 404));
+        const id = errorHandler.idSchema.parse(req.params).id;
+        
+        const caso = await casosRepository.findById(id);
+
+        if(!caso){
+            return next(new errorHandler.ApiError("Não foi possível encontrar o caso !", 404));
+        }
+
+        return res.status(200).json(caso);
+
+    }catch(error){
+        if (error instanceof z.ZodError) {
+            const errorMessages = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+            return next(new errorHandler.ApiError(errorMessages.join(', '), 400));
+        }
+        console.error("Erro inesperado na criação do agente:", error);
+        return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
     }
-
-    return res.status(200).json(caso);
 }
 
 
 async function createCaso(req, res, next){
 
-    let dados;
+    try{
 
-    dados = errorHandler.casoSchema.parse(req.body);
-    
-    const agente = await agentesRepository.findById(dados.agente_id);
+        const dados = errorHandler.casoSchema.parse(req.body);
+        
+        const agente = await agentesRepository.findById(dados.agente_id);
 
-    if(!agente){
-        return next(new errorHandler.ApiError("Não foi possível encontrar o agente do caso !", 404));
+        if(!agente){
+            return next(new errorHandler.ApiError("Agente inexistente !", 404));
+        }
+
+        const caso = await casosRepository.create(dados);
+
+        if(!caso){
+            return next(new errorHandler.ApiError("Não foi possível criar o caso !", 404));
+        }
+
+        return res.status(201).json({caso: caso});
+
+    }catch(error){
+        if (error instanceof z.ZodError) {
+            const errorMessages = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+            return next(new errorHandler.ApiError(errorMessages.join(', '), 400));
+        }
+        console.error("Erro inesperado na criação do agente:", error);
+        return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
     }
-
-    const caso = await casosRepository.create(dados);
-
-    if(!caso){
-        return next(new errorHandler.ApiError("Não foi possível criar o caso !", 404));
-    }
-
-    return res.status(201).json({caso: caso});
-    
 }
 
 async function deleteCasoById(req, res){
-    let id;
 
-    id = errorHandler.idSchema.parse(req.params).id;
+    try{
 
-    const caso = await casosRepository.deleteById(id);
-    
-    if(!caso){
-        return next(new errorHandler.ApiError("Não foi possível encontrar o caso !", 404));
+        const id = errorHandler.idSchema.parse(req.params).id;
+
+        const caso = await casosRepository.deleteById(id);
+        
+        if(!caso){
+            return next(new errorHandler.ApiError("Não foi possível encontrar o caso !", 404));
+        }
+        
+        return res.status(204).send();
+
+    }catch(error){
+        if (error instanceof z.ZodError) {
+            const errorMessages = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+            return next(new errorHandler.ApiError(errorMessages.join(', '), 400));
+        }
+        console.error("Erro inesperado na criação do agente:", error);
+        return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
     }
-    
-    return res.status(204).send();
-    
 }
 
 async function editCaso(req, res, next) {
-    let id, dados;
 
-    id = errorHandler.idSchema.parse(req.params).id;    
-    dados = errorHandler.casoSchema.parse(req.body);
+    try{
+        const id = errorHandler.idSchema.parse(req.params).id;    
+        const dados = errorHandler.casoSchema.parse(req.body);
 
-    const caso = await casosRepository.edit(id, dados);
+        const caso = await casosRepository.edit(id, dados);
 
-    if(!caso){
-        return next(new errorHandler.ApiError("Não foi possível encontrar o caso !", 404));
+        if(!caso){
+            return next(new errorHandler.ApiError("Não foi possível encontrar o caso !", 404));
+        }
+
+        return res.status(200).json({message: "Caso editado com sucesso !", caso: caso});
+
+    }catch(error){
+        if (error instanceof z.ZodError) {
+            const errorMessages = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+            return next(new errorHandler.ApiError(errorMessages.join(', '), 400));
+        }
+        console.error("Erro inesperado na criação do agente:", error);
+        return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
     }
-
-    return res.status(200).json({message: "Caso editado com sucesso !", caso: caso});
 }
 
 async function editCasoProperty(req, res, next){
+    try{
+        
+        const id = errorHandler.idSchema.parse(req.params).id;
+        const dados = errorHandler.partialCasoSchema.parse(req.body);
+
+        if(Object.keys(dados).length === 0 ){
+            return next(new errorHandler.ApiError("Não foi possível atualizar as propriedades do agente pois não foram enviados dados !", 400));
+        }
+
+        const caso = await casosRepository.edit(id, dados);
+
+        if(!caso){
+            return next(new errorHandler.ApiError("Não foi possível atualizar as propriedades do agente", 404));
+        }
+
+        return res.status(200).json({caso: caso});
     
-    let id, dados;
-
-    id = errorHandler.idSchema.parse(req.params).id;
-    dados = errorHandler.partialCasoSchema.parse(req.body);
-
-    if(Object.keys(dados).length === 0 ){
-        return next(new errorHandler.ApiError("Não foi possível atualizar as propriedades do agente pois não foram enviados dados !", 400));
+    }catch(error){
+        if (error instanceof z.ZodError) {
+            const errorMessages = error.errors.map(err => `${err.path.join('.')}: ${err.message}`);
+            return next(new errorHandler.ApiError(errorMessages.join(', '), 400));
+        }
+        console.error("Erro inesperado na criação do agente:", error);
+        return next(new errorHandler.ApiError("Ocorreu um erro no servidor.", 500));
     }
-
-    const caso = await casosRepository.edit(id, dados);
-
-    if(!caso){
-        return next(new errorHandler.ApiError("Não foi possível atualizar as propriedades do agente", 404));
-    }
-
-    return res.status(200).json({caso: caso});
 }
 
 module.exports = {

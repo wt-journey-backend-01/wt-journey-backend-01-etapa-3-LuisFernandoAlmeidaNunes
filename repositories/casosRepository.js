@@ -15,10 +15,6 @@ async function findById(id){
 
     const caso = await db('casos').where({id:id}).first();
 
-    if(!caso){
-        return false;
-    }
-
     return caso;
 }
 
@@ -55,11 +51,7 @@ async function findByAgente(id){
 
 async function create(obj){
 
-    const created = await db("casos").insert(obj,["*"]);
-
-    if (!created){
-        return false;
-    }
+    const [created] = await db("casos").insert(obj,["*"]);
 
     return created;
 
@@ -68,11 +60,7 @@ async function create(obj){
 
 async function edit(id, casoData){
 
-    const caso = await db('casos').where({id:id}).update(casoData,["*"]);
-
-    if (!caso) {
-        return false; 
-    }
+    const [caso] = await db('casos').where({id:id}).update(casoData,["*"]);
 
     return caso;
 }
@@ -82,10 +70,6 @@ async function deleteById(id) {
     console.log(typeof(id))
 
     const deleted = await db("casos").where({id:id}).del();
-  
-    if(!deleted){
-        return false;
-    }
 
     return deleted;
 

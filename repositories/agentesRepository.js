@@ -1,13 +1,13 @@
 const db = require("../db/db");
 
 async function create(obj) {
-    const created = await db("agentes").insert(obj,["*"]);
+    const [created] = await db("agentes").insert(obj,["*"]);
 
     return created;
 }
 
 async function findAll() {
-    const agentes = await db("agentes").select("*");
+    const [agentes] = await db("agentes").select("*");
     return agentes;
 }
 
@@ -28,7 +28,7 @@ async function deleteById(id) {
 
 async function edit(id, agenteData){
 
-    const agente = await db('agentes').where({id:id}).update(agenteData,["*"]);
+    const [agente] = await db('agentes').where({id:id}).update(agenteData,["*"]);
 
     return agente;
 }

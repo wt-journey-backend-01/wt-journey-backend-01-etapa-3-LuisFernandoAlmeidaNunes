@@ -10,13 +10,15 @@ exports.up = function(knex) {
         table.date('dataDeIncorporacao').notNullable();
         table.enu('cargo', ['delegado', 'investigador']).notNullable();
     })
-    .createTable('casos', function(table) {
+    .then(() => {
+      return knex.schema.createTable('casos', function(table) {
         table.increments('id').primary();
         table.string('titulo').notNullable();
         table.string('descricao').notNullable();
         table.enu('status', ['aberto', 'solucionado']).notNullable();
         table.integer('agente_id').unsigned().references('id').inTable('agentes').onDelete('CASCADE');
-    })
+      });
+    });
 };
 
 /**
