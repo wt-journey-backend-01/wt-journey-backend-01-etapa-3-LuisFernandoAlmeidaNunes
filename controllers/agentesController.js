@@ -5,6 +5,7 @@ const errorHandler = require("../utils/errorHandler");
 
 async function getAllAgentes(req, res, next) {
     try {
+        
         const agentes = await agentesRepository.findAll();
 
         if(agentes.length === 0){
