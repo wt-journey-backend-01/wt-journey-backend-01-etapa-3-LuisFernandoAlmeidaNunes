@@ -1,77 +1,199 @@
-<sup>Suas cotas de feedback AI acabaram, o sistema de feedback voltou ao padrão.</sup>
+<sup>Esse é um feedback gerado por IA, ele pode conter erros.</sup>
 
-# 🧪 Relatório de Avaliação – Journey Levty Etapa 1 - LuisFernandoAlmeidaNunes
+Você tem 2 créditos restantes para usar o sistema de feedback AI.
 
-**Data:** 12/08/2025 17:11
+# Feedback para gnvr29:
 
-**Nota Final:** `0.00/100`
-**Status:** ❌ Reprovado
+Nota final: **0.0/100**
 
----
-## ✅ Requisitos Obrigatórios
-- Foram encontrados `26` problemas nos requisitos obrigatórios. Veja abaixo os testes que falharam:
-  - ⚠️ **Falhou no teste**: `CREATE: Cria agentes corretamente`
-    - **Melhoria sugerida**: A criação de agentes (`POST /agentes`) não está conforme o esperado. O teste esperava um status `201 Created` e os dados do agente no corpo da resposta. Verifique a lógica da sua rota para garantir que o agente é salvo e a resposta é formatada corretamente.
-  - ⚠️ **Falhou no teste**: `READ: Lista todos os agente corretamente`
-    - **Melhoria sugerida**: A listagem de agentes (`GET /agentes`) não está correta. O teste esperava um status `200 OK` e um array de agentes. Certifique-se de que sua rota está buscando e retornando todos os agentes de forma adequada.
-  - ⚠️ **Falhou no teste**: `READ: Busca agente por ID corretamente`
-    - **Melhoria sugerida**: A busca de agente por ID (`GET /agentes/:id`) falhou. O teste esperava um status `200 OK` e o objeto do agente correspondente ao ID. Verifique a lógica de busca e o tratamento de IDs na sua rota.
-  - ⚠️ **Falhou no teste**: `UPDATE: Atualiza dados do agente com por completo (com PUT) corretamente`
-    - **Melhoria sugerida**: A atualização completa de agentes (`PUT /agentes/:id`) não funcionou. O teste esperava um status `200 OK` e o agente com os dados atualizados. Verifique se sua rota está recebendo o payload completo e substituindo os dados existentes corretamente.
-  - ⚠️ **Falhou no teste**: `UPDATE: Atualiza dados do agente com por completo (com PATCH) corretamente`
-    - **Melhoria sugerida**: A atualização parcial de agentes (`PATCH /agentes/:id`) falhou. O teste esperava um status `200 OK` e o agente com os dados parcialmente atualizados. Verifique se sua rota está recebendo o payload parcial e aplicando as mudanças sem sobrescrever o objeto inteiro.
-  - ⚠️ **Falhou no teste**: `DELETE: Deleta dados de agente corretamente`
-    - **Melhoria sugerida**: A exclusão de agente (`DELETE /agentes/:id`) não funcionou como esperado. O teste esperava um status `204 No Content` e que o agente fosse realmente removido. Verifique a lógica de exclusão na sua rota.
-  - ⚠️ **Falhou no teste**: `CREATE: Recebe status code 400 ao tentar criar agente com payload em formato incorreto`
-    - **Melhoria sugerida**: Seu endpoint de criação de agentes (`POST /agentes`) não está validando payloads incorretos. O teste enviou dados inválidos e esperava um status `400 Bad Request`, mas recebeu outro. Implemente uma validação robusta para os dados de entrada.
-  - ⚠️ **Falhou no teste**: `READ: Recebe status 404 ao tentar buscar um agente inexistente`
-    - **Melhoria sugerida**: Ao tentar buscar um agente com ID inexistente (`GET /agentes/:id`), o teste não recebeu `404 Not Found`. Sua rota deve ser capaz de identificar que o recurso não existe e retornar o status apropriado.
-  - ⚠️ **Falhou no teste**: `UPDATE: Recebe status code 400 ao tentar atualizar agente por completo com método PUT e payload em formato incorreto`
-    - **Melhoria sugerida**: Sua rota de atualização completa de agentes (`PUT /agentes/:id`) não está retornando `400 Bad Request` para payloads inválidos. Garanta que a validação de dados ocorra antes da tentativa de atualização.
-  - ⚠️ **Falhou no teste**: `UPDATE: Recebe status code 404 ao tentar atualizar agente por completo com método PUT de agente inexistente`
-    - **Melhoria sugerida**: Ao tentar atualizar um agente inexistente com `PUT /agentes/:id`, o teste não recebeu `404 Not Found`. A rota deve indicar que o recurso não foi encontrado.
-  - ⚠️ **Falhou no teste**: `UPDATE: Recebe status code 400 ao tentar atualizar agente parcialmente com método PATCH e payload em formato incorreto`
-    - **Melhoria sugerida**: Nenhuma sugestão de melhoria disponível.
-  - ⚠️ **Falhou no teste**: `UPDATE: Recebe status code 404 ao tentar atualizar agente por parcialmente com método PATCH de agente inexistente`
-    - **Melhoria sugerida**: Ao tentar atualizar um agente inexistente com `PATCH /agentes/:id`, o teste não recebeu `404 Not Found`. Certifique-se de que sua rota verifica a existência do recurso antes de tentar a atualização.
-  - ⚠️ **Falhou no teste**: `DELETE: Recebe status code 404 ao tentar deletar agente inexistente`
-    - **Melhoria sugerida**: Ao tentar deletar um agente com ID inexistente (`DELETE /agentes/:id`), o teste não recebeu `404 Not Found`. Sua rota deve sinalizar quando o recurso a ser deletado não é encontrado.
-  - ⚠️ **Falhou no teste**: `CREATE: Cria casos corretamente`
-    - **Melhoria sugerida**: A criação de casos (`POST /casos`) não está como o esperado. O teste esperava um status `201 Created` e os dados do caso no corpo da resposta. Revise a lógica da sua rota de criação de casos.
-  - ⚠️ **Falhou no teste**: `Lista todos os casos corretamente`
-    - **Melhoria sugerida**: A listagem de casos (`GET /casos`) não está correta. O teste esperava um status `200 OK` e um array de casos. Certifique-se de que sua rota está buscando e retornando todos os casos de forma adequada.
-  - ⚠️ **Falhou no teste**: `READ: Busca caso por ID corretamente`
-    - **Melhoria sugerida**: A busca de caso por ID (`GET /casos/:id`) falhou. O teste esperava um status `200 OK` e o objeto do caso correspondente ao ID. Verifique a lógica de busca e o tratamento de IDs na sua rota.
-  - ⚠️ **Falhou no teste**: `UPDATE: Atualiza dados de um caso com por completo (com PUT) corretamente`
-    - **Melhoria sugerida**: A atualização completa de casos (`PUT /casos/:id`) não funcionou. O teste esperava um status `200 OK` e o caso com os dados atualizados. Verifique se sua rota está recebendo o payload completo e substituindo os dados existentes corretamente.
-  - ⚠️ **Falhou no teste**: `UPDATE: Atualiza dados de um caso parcialmente (com PATCH) corretamente`
-    - **Melhoria sugerida**: A atualização parcial de casos (`PATCH /casos/:id`) falhou. O teste esperava um status `200 OK` e o caso com os dados parcialmente atualizados. Verifique se sua rota está recebendo o payload parcial e aplicando as mudanças sem sobrescrever o objeto inteiro.
-  - ⚠️ **Falhou no teste**: `DELETE: Deleta dados de um caso corretamente`
-    - **Melhoria sugerida**: A exclusão de caso (`DELETE /casos/:id`) não funcionou como esperado. O teste esperava um status `204 No Content` e que o caso fosse realmente removido. Verifique a lógica de exclusão na sua rota.
-  - ⚠️ **Falhou no teste**: `CREATE: Recebe status code 400 ao tentar criar caso com payload em formato incorreto`
-    - **Melhoria sugerida**: Seu endpoint de criação de casos (`POST /casos`) não está validando payloads incorretos. O teste enviou dados inválidos e esperava um status `400 Bad Request`, mas recebeu outro. Implemente uma validação robusta para os dados de entrada.
-  - ⚠️ **Falhou no teste**: `CREATE: Recebe status code 404 ao tentar criar caso com id de agente inválido/inexistente`
-    - **Melhoria sugerida**: Ao tentar criar um caso com um `agente_id` inexistente, o teste não recebeu `404 Not Found`. Sua API deve ser capaz de identificar que o agente referenciado não existe e retornar o status apropriado.
-  - ⚠️ **Falhou no teste**: `READ: Recebe status code 404 ao tentar buscar um caso por ID inválido`
-    - **Melhoria sugerida**: Ao tentar buscar um caso com ID inexistente (`GET /casos/:id`), o teste não recebeu `404 Not Found`. Sua rota deve ser capaz de identificar que o recurso não existe e retornar o status apropriado.
-  - ⚠️ **Falhou no teste**: `UPDATE: Recebe status code 400 ao tentar atualizar um caso por completo com método PUT com payload em formato incorreto`
-    - **Melhoria sugerida**: Sua rota de atualização completa de casos (`PUT /casos/:id`) não está retornando `400 Bad Request` para payloads inválidos. Garanta que a validação de dados ocorra antes da tentativa de atualização.
-  - ⚠️ **Falhou no teste**: `UPDATE: Recebe status code 404 ao tentar atualizar um caso por completo com método PUT de um caso inexistente`
-    - **Melhoria sugerida**: Ao tentar atualizar um caso inexistente com `PUT /casos/:id`, o teste não recebeu `404 Not Found`. A rota deve indicar que o recurso não foi encontrado.
-  - ⚠️ **Falhou no teste**: `UPDATE: Recebe status code 404 ao tentar atualizar um caso parcialmente com método PATCH de um caso inexistente`
-    - **Melhoria sugerida**: Ao tentar atualizar um caso inexistente com `PATCH /casos/:id`, o teste não recebeu `404 Not Found`. Certifique-se de que sua rota verifica a existência do recurso antes de tentar a atualização.
-  - ⚠️ **Falhou no teste**: `DELETE: Recebe status code 404 ao tentar deletar um caso inexistente`
-    - **Melhoria sugerida**: Ao tentar deletar um caso com ID inexistente (`DELETE /casos/:id`), o teste não recebeu `404 Not Found`. Sua rota deve sinalizar quando o recurso a ser deletado não é encontrado.
+# Feedback para o(a) estudante gnvr29 🚀
 
-## ⭐ Itens de Destaque (recupera até 40 pontos)
-- Nenhum item bônus foi identificado. Tente adicionar mais estilo e complexidade ao seu código nas próximas tentativas!
+Olá, gnvr29! Tudo bem? 😊 Primeiro, quero parabenizá-lo(a) pela dedicação em avançar para a etapa de persistência com PostgreSQL e Knex.js! 🎉 É um passo super importante para construir APIs robustas e escaláveis, e você já mostrou que sabe estruturar seu projeto com controllers, repositories, rotas e validação usando Zod — isso é excelente! 👏
 
-## ❌ Problemas Detectados (Descontos de até 100 pontos)
-- Nenhuma infração grave foi detectada. Muito bom nesse aspecto!
+Além disso, percebi que você conseguiu implementar vários recursos bônus, como filtros complexos e mensagens de erro customizadas. Isso mostra que você está indo além do básico, explorando funcionalidades que enriquecem sua API. Muito bom mesmo! 🌟
 
 ---
-Continue praticando e caprichando no código. Cada detalhe conta! 💪
-Se precisar de ajuda, não hesite em perguntar nos canais da guilda. Estamos aqui para ajudar! 🤝
+
+## Vamos analisar juntos os pontos que precisam de atenção para destravar seu projeto, ok? 🕵️‍♂️
+
+### 1. Estrutura de Diretórios — Está tudo certo! ✅
+
+Você seguiu a estrutura esperada, com as pastas `controllers/`, `repositories/`, `routes/`, `db/` (com `migrations` e `seeds`), e o arquivo `server.js` na raiz. Isso é ótimo! Manter essa organização vai facilitar muito a manutenção e escalabilidade do seu código.
+
+---
+
+### 2. Configuração da Conexão com o Banco de Dados — Aqui está o ponto fundamental! ⚠️
+
+Ao analisar seu arquivo `db/db.js`, você está importando as configurações do `knexfile.js` e criando a instância do Knex corretamente:
+
+```js
+const knexConfig = require('../knexfile');
+const knex = require('knex'); 
+
+const nodeEnv = process.env.NODE_ENV || 'development';
+const config = knexConfig[nodeEnv]; 
+
+const db = knex(config);
+
+db.raw('select 1+1 as result')
+  .then(() => {
+    console.log('[DB] Conexão com o banco OK!');
+  })
+  .catch(err => {
+    console.error('[DB] Erro na conexão com o banco:', err);
+  });
+
+module.exports = db;
+```
+
+Porém, percebi que no seu `server.js` você comentou a linha que carrega as variáveis de ambiente do `.env`:
+
+```js
+// require('dotenv').config(); 
+```
+
+Isso é um problema crucial! Sem essa linha, as variáveis `process.env.POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` e `DB_PORT` usadas no `knexfile.js` **não estarão definidas**, fazendo com que a conexão com o banco falhe silenciosamente ou lance erros.
+
+**Solução:** Descomente essa linha para garantir que as variáveis do seu arquivo `.env` sejam carregadas corretamente:
+
+```js
+require('dotenv').config(); 
+```
+
+Além disso, confira se seu arquivo `.env` está na raiz do projeto, com as variáveis definidas exatamente assim:
+
+```
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=policia_db
+DB_PORT=5432
+```
+
+Se a porta do banco for diferente, ajuste o `DB_PORT` conforme necessário.
+
+---
+
+### 3. Migrações e Seeds — Verifique se foram executadas corretamente 🛠️
+
+Seu arquivo de migration está correto, criando as tabelas `agentes` e `casos` com os campos certos, incluindo a chave estrangeira `agente_id`:
+
+```js
+exports.up = function(knex) {
+  return knex.schema
+    .createTable('agentes', function(table) {
+        table.increments('id').primary();
+        table.string('nome').notNullable();
+        table.date('dataDeIncorporacao').notNullable();
+        table.enu('cargo', ['delegado', 'investigador']).notNullable();
+    })
+    .then(() => {
+      return knex.schema.createTable('casos', function(table) {
+        table.increments('id').primary();
+        table.string('titulo').notNullable();
+        table.string('descricao').notNullable();
+        table.enu('status', ['aberto', 'solucionado']).notNullable();
+        table.integer('agente_id').unsigned().references('id').inTable('agentes').onDelete('CASCADE');
+      });
+    });
+};
+```
+
+Mas, se a conexão com o banco não estiver ativa (por causa do `.env` não carregado), as migrations não serão aplicadas, e as tabelas não existirão no banco. Isso explica porque suas queries no `repositories` não retornam dados e todos os endpoints falham.
+
+**Confirme no terminal se as migrations foram aplicadas:**
+
+```bash
+npx knex migrate:latest
+```
+
+E se as seeds rodaram para popular as tabelas:
+
+```bash
+npx knex seed:run
+```
+
+Se você usa Docker, certifique-se de que o container está rodando e que o banco está acessível na porta configurada.
+
+---
+
+### 4. Repositórios — A lógica está correta, mas depende da conexão e das tabelas existentes
+
+Se o banco não está acessível ou as tabelas não existem, as funções em `agentesRepository.js` e `casosRepository.js` não conseguirão retornar dados:
+
+```js
+async function findAll() {
+    const agentes = await db("agentes").select("*");
+    return agentes;
+}
+```
+
+Sem as tabelas, essa query falhará ou retornará vazio. Isso impacta diretamente todos os endpoints que usam essas funções.
+
+---
+
+### 5. Validação e Tratamento de Erros — Muito bom o uso do Zod para validar entradas! 👏
+
+Notei que você está usando schemas para validar os dados recebidos e retornando erros detalhados com mensagens e status HTTP adequados (400 para dados inválidos, 404 para recursos não encontrados, 500 para erros internos). Isso é excelente para garantir uma API robusta e amigável para quem consome.
+
+---
+
+### 6. Endpoints comentados — Para os bônus, você já começou a implementar filtros e buscas, mas estão comentados
+
+Por exemplo, no `casosController.js`:
+
+```js
+// router.get('/:caso_id/agente', casosController.getAgenteDataByCasoId);
+// router.get('/search', casosController.getCasosByWord);
+```
+
+Parabéns por já ter pensado nessas funcionalidades extras! Quando resolver os pontos básicos, volte para implementar esses filtros e buscas, que vão deixar sua API muito mais poderosa.
+
+---
+
+## Recursos que recomendo para você avançar ainda mais:
+
+- Para garantir a configuração correta do banco com Docker e Knex, veja este vídeo super didático:  
+  [Configuração de Banco de Dados com Docker e Knex](http://googleusercontent.com/youtube.com/docker-postgresql-node)
+
+- Para entender melhor como criar e rodar migrations e seeds com Knex:  
+  [Documentação oficial do Knex sobre Migrations](https://knexjs.org/guide/migrations.html)  
+  [Vídeo sobre Knex Seeds](http://googleusercontent.com/youtube.com/knex-seeds)
+
+- Para aprofundar em validação de dados e tratamento de erros na API:  
+  [Validação de dados em APIs Node.js/Express](https://youtu.be/yNDCRAz7CM8?si=Lh5u3j27j_a4w3A_)  
+  [Status HTTP 400 - Bad Request](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status/400)  
+  [Status HTTP 404 - Not Found](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status/404)
+
+- Para entender melhor os status HTTP e como usá-los em APIs:  
+  [Protocolo HTTP e Status Codes](https://youtu.be/RSZHvQomeKE)
+
+---
+
+## Resumo dos principais pontos para focar agora:
+
+- ✅ **Descomente e garanta o carregamento do `.env` no `server.js`** para que as variáveis de ambiente estejam disponíveis e a conexão com o banco funcione.
+
+- ✅ **Confirme que o container Docker do PostgreSQL está rodando** e que o banco está acessível na porta configurada.
+
+- ✅ **Execute as migrations e seeds** para criar as tabelas e popular os dados iniciais.
+
+- ✅ **Teste a conexão com o banco** no `db/db.js` e verifique se a mensagem `[DB] Conexão com o banco OK!` aparece no console.
+
+- ✅ **Revise os endpoints básicos** para garantir que estão consumindo os dados do banco, e que os erros de validação e recursos não encontrados estão sendo tratados corretamente.
+
+- ✅ **Depois de resolver o básico, volte para implementar os filtros e buscas extras** que já estão nos seus arquivos, para incrementar sua API.
+
+---
+
+gnvr29, você está no caminho certo, e com esses ajustes fundamentais você vai destravar toda a funcionalidade da sua API! 🚀 Continue firme, que a persistência e organização do seu código vão te levar longe! Estou aqui torcendo por você! 👊💥
+
+Se precisar de ajuda para entender algum ponto específico, pode chamar! 😉
+
+Um abraço e bons códigos! 💻✨
+
+> Caso queira tirar uma dúvida específica, entre em contato com o Chapter no nosso [discord](https://discord.gg/DryuHVnz).
+
+
 
 ---
 <sup>Made By the Autograder Team.</sup><br>&nbsp;&nbsp;&nbsp;&nbsp;<sup><sup>- [Arthur Carvalho](https://github.com/ArthurCRodrigues)</sup></sup><br>&nbsp;&nbsp;&nbsp;&nbsp;<sup><sup>- [Arthur Drumond](https://github.com/drumondpucminas)</sup></sup><br>&nbsp;&nbsp;&nbsp;&nbsp;<sup><sup>- [Gabriel Resende](https://github.com/gnvr29)</sup></sup>
